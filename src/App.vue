@@ -7,14 +7,21 @@
 			<button class="header__end cart-toggle" @click="toggleCartVisibility">
 				<CartIcon class="cart-icon" />
 				{{ isCartVisible ? 'Ocultar carrito' : 'Mi carrito' }}
+				<span class="badge" v-if="cart.length > 0">{{ cart.length }}</span>
 			</button>
 		</header>
 
-		<main>
+		<main class="main">
 			<ProductList @add-to-cart="addToCart" />
 		</main>
+
 		<transition name="slide">
-			<Cart v-if="isCartVisible" :cart="cart" @remove-from-cart="removeFromCart" />
+			<Cart
+				v-if="isCartVisible"
+				:cart="cart"
+				@remove-from-cart="removeFromCart"
+				@close-cart="isCartVisible = false"
+			/>
 		</transition>
 	</div>
 </template>
@@ -66,12 +73,16 @@ body {
 .app {
 	margin: 0 auto;
 	background-color: #fff;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 40px;
 }
 
 header {
 	text-align: center;
 	color: white;
-	background: rgb(76, 175, 80);
 	background: linear-gradient(
 		333deg,
 		rgba(76, 175, 80, 1) 0%,
@@ -89,6 +100,10 @@ header {
 	align-items: center;
 }
 
+.header__start {
+	display: flex;
+}
+
 .header__start img {
 	width: 150px;
 }
@@ -102,23 +117,43 @@ header {
 	border-radius: 5px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
-}
-
-.cart-icon {
-	width: 14px;
+	display: flex;
+	align-items: center;
+	position: relative;
 }
 
 .cart-toggle:hover {
 	background-color: #276b24;
 }
 
-main {
-	margin: 35px 30px 35px 0;
+.cart-icon {
+	width: 14px;
+	margin-right: 8px;
 }
+
+.badge {
+	background-color: #0bd600;
+	color: white;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2px 8px;
+	font-size: 12px;
+	margin-left: 8px;
+}
+
+.main {
+	flex-grow: 1;
+}
+
 .slide-enter-active,
 .slide-leave-active {
 	transition: transform 0.5s ease;
 }
+
 .slide-enter,
 .slide-leave-to {
 	transform: translateX(100%);

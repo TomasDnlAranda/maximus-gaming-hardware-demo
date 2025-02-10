@@ -46,20 +46,36 @@ export default (await import('vue')).defineComponent({
     },
     methods: {
         startScroll(event) {
+            // Desactivar scroll suave durante el arrastre
+            this.$refs.scrollContainer.style.scrollBehavior = 'auto';
             this.isScrolling = true;
-            // Posición inicial relativa al contenedor
-            this.startX = event.pageX - this.$refs.scrollContainer.offsetLeft;
+            let pageX;
+            if (event.type === 'touchstart') {
+                pageX = event.touches[0].pageX;
+            }
+            else {
+                pageX = event.pageX;
+            }
+            this.startX = pageX - this.$refs.scrollContainer.offsetLeft;
             this.scrollLeft = this.$refs.scrollContainer.scrollLeft;
         },
         stopScroll() {
             this.isScrolling = false;
+            // Restaurar el scroll suave una vez terminado el gesto
+            this.$refs.scrollContainer.style.scrollBehavior = 'smooth';
         },
         onScroll(event) {
             if (!this.isScrolling)
                 return;
             event.preventDefault();
-            const x = event.pageX - this.$refs.scrollContainer.offsetLeft;
-            const walk = (x - this.startX) * 2; // Velocidad del scroll
+            let pageX;
+            if (event.type === 'touchmove') {
+                pageX = event.touches[0].pageX;
+            }
+            else {
+                pageX = event.pageX;
+            }
+            const walk = (pageX - this.startX) * 1.5; // Puedes ajustar este multiplicador
             this.$refs.scrollContainer.scrollLeft = this.scrollLeft - walk;
         },
         addToCart(product) {
@@ -83,6 +99,9 @@ function __VLS_template() {
         ...{ onMouseup: (__VLS_ctx.stopScroll) },
         ...{ onMouseleave: (__VLS_ctx.stopScroll) },
         ...{ onMousemove: (__VLS_ctx.onScroll) },
+        ...{ onTouchstart: (__VLS_ctx.startScroll) },
+        ...{ onTouchmove: (__VLS_ctx.onScroll) },
+        ...{ onTouchend: (__VLS_ctx.stopScroll) },
         ref: ("scrollContainer"),
         ...{ class: ("product-list") },
     });
