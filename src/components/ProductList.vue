@@ -12,14 +12,12 @@
 			@touchend="stopScroll"
 		>
 			<div v-for="product in products" :key="product.id" class="product">
-				<router-link :to="{ name: 'product', params: { slug: product.slug } }">
-					<img :src="product.image" :alt="product.name" class="product-image" />
-					<div class="product-info">
-						<h3 class="product-name">{{ product.name }}</h3>
-						<p class="product-price">${{ product.price.toLocaleString() + ' ARS' }}</p>
-					</div>
-				</router-link>
-				<button class="add-to-cart" @click="addToCart(product)">Agregar al carrito</button>
+				<img :src="product.image" :alt="product.name" class="product-image" />
+				<div class="product-info">
+					<h3 class="product-name">{{ product.name }}</h3>
+					<p class="product-price">${{ product.price.toLocaleString() + ' ARS' }}</p>
+					<button class="add-to-cart" @click="addToCart(product)">Agregar al carrito</button>
+				</div>
 			</div>
 		</div>
 	</div>
