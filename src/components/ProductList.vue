@@ -12,12 +12,14 @@
 			@touchend="stopScroll"
 		>
 			<div v-for="product in products" :key="product.id" class="product">
-				<img :src="product.image" :alt="product.name" class="product-image" />
-				<div class="product-info">
-					<h3 class="product-name">{{ product.name }}</h3>
-					<p class="product-price">${{ product.price.toLocaleString() + ' ARS' }}</p>
-					<button class="add-to-cart" @click="addToCart(product)">Agregar al carrito</button>
-				</div>
+				<router-link :to="{ name: 'product', params: { slug: product.slug } }">
+					<img :src="product.image" :alt="product.name" class="product-image" />
+					<div class="product-info">
+						<h3 class="product-name">{{ product.name }}</h3>
+						<p class="product-price">${{ product.price.toLocaleString() + ' ARS' }}</p>
+					</div>
+				</router-link>
+				<button class="add-to-cart" @click="addToCart(product)">Agregar al carrito</button>
 			</div>
 		</div>
 	</div>
@@ -37,6 +39,7 @@ export default {
 					price: '657.900',
 					image:
 						'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/HP-15-DY5885WM_600.jpg',
+					slug: 'notebook-hp-dy5885wm-15-6-intel-i5-1235u-8gb-ram-256gb-ssd-w11-spruce-blue',
 				},
 				{
 					id: 2,
@@ -44,6 +47,7 @@ export default {
 					price: '367.600',
 					image:
 						'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/90YV0IH2-M0AA00_600.jpg',
+					slug: 'placa-de-video-asus-amd-radeon-rx-7600-dual-v2-8gb-gddr6-oc',
 				},
 				{
 					id: 3,
@@ -51,6 +55,7 @@ export default {
 					price: '92.900',
 					image:
 						'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/910-005566_600.jpg',
+					slug: 'mouse-logitech-g502-lightspeed-inalambrico',
 				},
 				{
 					id: 4,
@@ -58,18 +63,21 @@ export default {
 					price: '22.900',
 					image:
 						'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/KF432C16BB-8_600.jpg',
+					slug: 'memoria-ram-kingston-fury-beast-8gb-3200-mhz-ddr4',
 				},
 				{
 					id: 5,
 					name: 'Disco Solido Ssd 512gb Verbatim Vi3000 m.2 Nvme Pcie X4 4.0',
 					price: '39.800',
 					image: 'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/49374_600.jpg',
+					slug: 'disco-solido-ssd-512gb-verbatim-vi3000-m-2-nvme-pcie-x4-4-0',
 				},
 				{
 					id: 6,
 					name: 'Disco Solido Ssd 256gb Verbatim Vi3000 m.2 2280 Nvme Pcie 4',
 					price: '21.900',
 					image: 'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/49373_600.jpg',
+					slug: 'disco-solido-ssd-256gb-verbatim-vi3000-m-2-2280-nvme-pcie-4',
 				},
 			],
 		};
@@ -111,6 +119,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+	text-decoration: none;
+}
+
 .product-list-container {
 	margin: 0 auto;
 	padding: 0 25px;
@@ -144,10 +156,6 @@ export default {
 	flex-direction: column;
 	justify-content: space-between;
 	margin: 0 5px;
-}
-
-.product:hover {
-	transform: scale(1.05);
 }
 
 .product-image {

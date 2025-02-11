@@ -35,7 +35,7 @@ function __VLS_template() {
     };
     let __VLS_components;
     let __VLS_directives;
-    ['cart-toggle',];
+    ['header__start', 'cart-toggle',];
     // CSS variable injection 
     // CSS variable injection end 
     __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
@@ -64,7 +64,15 @@ function __VLS_template() {
         ...{ class: ("cart-icon") },
     }, ...__VLS_functionalComponentArgsRest(__VLS_1));
     (__VLS_ctx.isCartVisible ? 'Ocultar carrito' : 'Mi carrito');
-    __VLS_elementAsFunction(__VLS_intrinsicElements.main, __VLS_intrinsicElements.main)({});
+    if (__VLS_ctx.cart.length > 0) {
+        __VLS_elementAsFunction(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
+            ...{ class: ("badge") },
+        });
+        (__VLS_ctx.cart.length);
+    }
+    __VLS_elementAsFunction(__VLS_intrinsicElements.main, __VLS_intrinsicElements.main)({
+        ...{ class: ("main") },
+    });
     const __VLS_6 = {}.ProductList;
     /** @type { [typeof __VLS_components.ProductList, ] } */ ;
     // @ts-ignore
@@ -96,15 +104,24 @@ function __VLS_template() {
         // @ts-ignore
         const __VLS_21 = __VLS_asFunctionalComponent(__VLS_20, new __VLS_20({
             ...{ 'onRemoveFromCart': {} },
+            ...{ 'onCloseCart': {} },
             cart: ((__VLS_ctx.cart)),
         }));
         const __VLS_22 = __VLS_21({
             ...{ 'onRemoveFromCart': {} },
+            ...{ 'onCloseCart': {} },
             cart: ((__VLS_ctx.cart)),
         }, ...__VLS_functionalComponentArgsRest(__VLS_21));
         let __VLS_26;
         const __VLS_27 = {
             onRemoveFromCart: (__VLS_ctx.removeFromCart)
+        };
+        const __VLS_28 = {
+            onCloseCart: (...[$event]) => {
+                if (!((__VLS_ctx.isCartVisible)))
+                    return;
+                __VLS_ctx.isCartVisible = false;
+            }
         };
         let __VLS_23;
         let __VLS_24;
@@ -112,7 +129,7 @@ function __VLS_template() {
     }
     __VLS_19.slots.default;
     var __VLS_19;
-    ['app', 'header', 'header__start', 'header__end', 'cart-toggle', 'cart-icon',];
+    ['app', 'header', 'header__start', 'header__end', 'cart-toggle', 'cart-icon', 'badge', 'main',];
     var __VLS_slots;
     var $slots;
     let __VLS_inheritedAttrs;

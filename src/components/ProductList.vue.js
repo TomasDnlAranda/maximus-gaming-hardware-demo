@@ -8,37 +8,37 @@ export default (await import('vue')).defineComponent({
                 {
                     id: 1,
                     name: 'Notebook Hp Dy5885wm 15.6" Intel I5 1235u 8gb Ram 256gb Ssd W11- Spruce Blue',
-                    price: 657.9,
+                    price: '657.900',
                     image: 'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/HP-15-DY5885WM_600.jpg',
                 },
                 {
                     id: 2,
                     name: 'Placa de Video Asus Amd Radeon Rx 7600 Dual v2 8gb Gddr6 Oc',
-                    price: 367.6,
+                    price: '367.600',
                     image: 'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/90YV0IH2-M0AA00_600.jpg',
                 },
                 {
                     id: 3,
                     name: 'Mouse Logitech G502 Lightspeed Inalambrico',
-                    price: 92.9,
+                    price: '92.900',
                     image: 'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/910-005566_600.jpg',
                 },
                 {
                     id: 4,
                     name: 'Memoria Ram Kingston Fury Beast 8gb 3200 Mhz Ddr4',
-                    price: 22.9,
+                    price: '22.900',
                     image: 'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/KF432C16BB-8_600.jpg',
                 },
                 {
                     id: 5,
                     name: 'Disco Solido Ssd 512gb Verbatim Vi3000 m.2 Nvme Pcie X4 4.0',
-                    price: 39.8,
+                    price: '39.800',
                     image: 'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/49374_600.jpg',
                 },
                 {
                     id: 6,
                     name: 'Disco Solido Ssd 256gb Verbatim Vi3000 m.2 2280 Nvme Pcie 4',
-                    price: 21.9,
+                    price: '21.900',
                     image: 'https://www.maximus.com.ar/Temp/App_WebSite/App_PictureFiles/Items/49373_600.jpg',
                 },
             ],
@@ -46,7 +46,6 @@ export default (await import('vue')).defineComponent({
     },
     methods: {
         startScroll(event) {
-            // Desactivar scroll suave durante el arrastre
             this.$refs.scrollContainer.style.scrollBehavior = 'auto';
             this.isScrolling = true;
             let pageX;
@@ -61,7 +60,6 @@ export default (await import('vue')).defineComponent({
         },
         stopScroll() {
             this.isScrolling = false;
-            // Restaurar el scroll suave una vez terminado el gesto
             this.$refs.scrollContainer.style.scrollBehavior = 'smooth';
         },
         onScroll(event) {
@@ -75,7 +73,7 @@ export default (await import('vue')).defineComponent({
             else {
                 pageX = event.pageX;
             }
-            const walk = (pageX - this.startX) * 1.5; // Puedes ajustar este multiplicador
+            const walk = (pageX - this.startX) * 1.5;
             this.$refs.scrollContainer.scrollLeft = this.scrollLeft - walk;
         },
         addToCart(product) {
@@ -127,7 +125,7 @@ function __VLS_template() {
         __VLS_elementAsFunction(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
             ...{ class: ("product-price") },
         });
-        (product.price.toLocaleString() + '00');
+        (product.price.toLocaleString() + ' ARS');
         __VLS_elementAsFunction(__VLS_intrinsicElements.button, __VLS_intrinsicElements.button)({
             ...{ onClick: (...[$event]) => {
                     __VLS_ctx.addToCart(product);
