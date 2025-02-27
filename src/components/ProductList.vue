@@ -12,7 +12,7 @@
 			@touchend="stopScroll"
 		>
 			<div v-for="product in products" :key="product.id" class="product">
-				<img :src="product.image" :alt="product.name" class="product-image" />
+				<img :src="product.image" :alt="product.name" class="product-image" draggable="false" />
 				<div class="product-info">
 					<h3 class="product-name">{{ product.name }}</h3>
 					<p class="product-price">${{ product.price.toLocaleString() + ' ARS' }}</p>
